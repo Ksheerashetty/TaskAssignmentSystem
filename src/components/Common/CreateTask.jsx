@@ -1,20 +1,16 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../../context/AuthProvider";
 
 const CreateTask = () => {
-  const [userData, setUserData] = useContext(AuthContext);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskDate, setTaskDate] = useState("");
   const [assignTo, setAssignTo] = useState("");
   const [category, setCategory] = useState("");
 
-  const [task, setTask] = useState({});
-
   function handleSubmit(e) {
     e.preventDefault();
 
-    setTask({
+    const newTask = {
       taskTitle,
       taskDescription,
       taskDate,
@@ -24,24 +20,24 @@ const CreateTask = () => {
       newTask: true,
       completed: false,
       failed: false,
-    });
+    };
 
-    const data = userData.EmpData;
+    const data = JSON.parse(localStorage.getItem("employees")) || [];
     data.forEach((emp) => {
       if (assignTo.toLocaleLowerCase() === emp.firstName.toLocaleLowerCase()) {
-        emp.tasks.push(task);
+        emp.tasks.push(newTask);
         emp.taskSummary.newTask += 1;
       }
     });
-    setUserData({ EmpData: data });
-    console.log(data,"data");
-    // localStorage.setItem("employees", JSON.stringify(data));
 
-    // setTaskTitle("");
-    // setTaskDescription("");
-    // setTaskDate("");
-    // setAssignTo("");
-    // setCategory("");
+    localStorage.setItem("employees", JSON.stringify(data));
+    console.log(data);
+
+    setTaskTitle("");
+    setTaskDescription("");
+    setTaskDate("");
+    setAssignTo("");
+    setCategory("");
   }
 
   return (

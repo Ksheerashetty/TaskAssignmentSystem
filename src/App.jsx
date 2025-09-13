@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import Login from "./components/Auth/Login";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import EmployeeDashboard from "./components/Dashboard/EmployeeDashboard";
-import { setLocalStorage } from "./utils/localStorage";
 import { AuthContext } from "./context/AuthProvider";
 
 const App = () => {
@@ -11,8 +10,7 @@ const App = () => {
   const [userData, setUserData] = useContext(AuthContext);
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("loggedInUser");
-
+    const loggedInUser = localStorage.getItem("loggedInUser"); 
     if (loggedInUser) {
       const uData = JSON.parse(loggedInUser);
       setUser(uData);
