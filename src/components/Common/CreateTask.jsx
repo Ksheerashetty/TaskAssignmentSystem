@@ -1,16 +1,19 @@
 import { useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthProvider";
 
 const CreateTask = () => {
+  const [userData, setUserData] = useContext(AuthContext);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskDate, setTaskDate] = useState("");
   const [assignTo, setAssignTo] = useState("");
   const [category, setCategory] = useState("");
 
+  const [task, setTask] = useState({});
   function handleSubmit(e) {
     e.preventDefault();
 
-    const newTask = {
+    setTask({
       taskTitle,
       taskDescription,
       taskDate,
@@ -20,16 +23,17 @@ const CreateTask = () => {
       newTask: true,
       completed: false,
       failed: false,
-    };
+    });
 
-    const data = JSON.parse(localStorage.getItem("employees")) || [];
+    const data = userData.EmpData;
     data.forEach((emp) => {
       if (assignTo.toLocaleLowerCase() === emp.firstName.toLocaleLowerCase()) {
-        emp.tasks.push(newTask);
+        emp.tasks.push(task);
         emp.taskSummary.newTask += 1;
       }
     });
-
+    setUserData({ EmpData: data });
+   
     localStorage.setItem("employees", JSON.stringify(data));
     console.log(data);
 
