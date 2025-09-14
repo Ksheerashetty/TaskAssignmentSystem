@@ -7,10 +7,10 @@ const AcceptTask = ({ data }) => {
         <h3 className="bg-red-600 text-lg font-medium px-3 py-1 rounded-sm">
           {data.category}
         </h3>
-        <h4 className="text-sm">{data.date}</h4>
+        <h4 className="text-sm">{data.taskDate}</h4>
       </div>
-      <h2 className="mt-5 text-xl font-semibold"> {data ? data.title : ""}</h2>
-      <p className="text-sm mt-3">{data ? data.desc : ""}</p>
+      <h2 className="mt-5 text-xl font-semibold"> {data ? data.taskTitle : ""}</h2>
+      <p className="text-sm mt-3">{data ? data.taskDescription : ""}</p>
       <div className="flex justify-between mt-7">
         <button className="bg-green-500 py-1 px-2 text-sm rounded-sm hover:bg-green-400 border-2 border-green-700">
           Mark as Completed
